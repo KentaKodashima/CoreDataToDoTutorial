@@ -14,6 +14,8 @@ class CreateVC: UIViewController {
   @IBOutlet weak var todoImage: UIImageView!
   @IBOutlet weak var todoNameField: UITextField!
   @IBOutlet weak var todoDescriptionField: UITextField!
+  @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var stackView: UIStackView!
   
   // MARK: - Properties
   private var selectedImage: UIImage!
@@ -22,8 +24,22 @@ class CreateVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: CreateVC.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: CreateVC.keyboardWillHideNotification, object: nil)
+    
     todoNameField.delegate = self
     todoDescriptionField.delegate = self
+  }
+  
+  override func viewWillLayoutSubviews() {
+    stackView.centerXAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor)
+    // Do the same for Y axis
+    stackView.centerYAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerYAnchor)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    NotificationCenter.default.removeObserver(self, name: CreateVC.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: CreateVC.keyboardWillHideNotification, object: nil)
   }
   
   // MARK: - Actions
@@ -35,6 +51,8 @@ class CreateVC: UIViewController {
     } else {
       
       resetFields()
+      
+      navigationController?.popViewController(animated: true)
     }
   }
   
@@ -113,6 +131,34 @@ extension CreateVC: UINavigationControllerDelegate, UIImagePickerControllerDeleg
 }
 
 extension CreateVC: UITextFieldDelegate {
+  @objc func keyboardWillShow(notification: NSNotification) {
+    // Get width & height of the screen
+    let screenSize: CGRect = UIScreen.main.bounds
+    let screenWidth = screenSize.width
+    let screenHeight = screenSize.height
+    
+    // Get the keyboard's final size
+    let info = notification.userInfo!
+    let keyboardFrame = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+    
+    // The bottom position of the stackview
+    let stackBottom = stackView.frame.origin.y + stackView.frame.height + self.view.frame.origin.y
+    // The top position of the keyboard
+    let keyboardTop = screenHeight - keyboardFrame.size.height - 88.0
+    // How much the keyboard overlaps the stackview
+    let overlap =  stackBottom - keyboardTop
+    
+    if overlap >= 0 {
+      // Move the contents up overlap value + 88.0
+      scrollView.contentOffset.y = overlap + 88.0
+      scrollView.isScrollEnabled = false
+    }
+  }
+  
+  @objc func keyboardWillHide(notification: NSNotification) {
+    scrollView.contentOffset.y = 0
+  }
+  
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     todoNameField.resignFirstResponder()
     todoDescriptionField.resignFirstResponder()
