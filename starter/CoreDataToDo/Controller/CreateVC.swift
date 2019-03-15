@@ -22,6 +22,8 @@ class CreateVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    todoNameField.delegate = self
+    todoDescriptionField.delegate = self
   }
   
   // MARK: - Actions
@@ -108,5 +110,13 @@ extension CreateVC: UINavigationControllerDelegate, UIImagePickerControllerDeleg
     // Take image picker off the screen
     dismiss(animated: true, completion: nil)
   }
-  
+}
+
+extension CreateVC: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    todoNameField.resignFirstResponder()
+    todoDescriptionField.resignFirstResponder()
+    
+    return true
+  }
 }
