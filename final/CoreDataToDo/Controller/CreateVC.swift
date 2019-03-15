@@ -16,6 +16,9 @@ class CreateVC: UIViewController {
   @IBOutlet weak var todoDescriptionField: UITextField!
   
   // MARK: - Properties
+  private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+  private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  
   private var selectedImage: UIImage!
   
   // MARK: - View controller life-cycle
@@ -26,13 +29,19 @@ class CreateVC: UIViewController {
   
   // MARK: - Actions
   @IBAction func saveButtonTapped() {
-    print("save button tapped")
-    
     if isFieldEmpty() {
       displayEmptyFieldAlert()
     } else {
+      let todo = ToDo(context: context)
+      todo.todoName = todoNameField.text
+      todo.todoDescription = todoDescriptionField.text
+      todo.dateCreated = NSDate()
+      todo.todoImage = selectedImage!.pngData() as NSData?
+      appDelegate.saveContext()
       
       resetFields()
+      
+      navigationController?.popViewController(animated: true)
     }
   }
   
