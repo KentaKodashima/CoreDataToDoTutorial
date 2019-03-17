@@ -58,6 +58,7 @@
 		ED188751223B51560080823B /* CoreDataToDo */ = {
 			isa = PBXGroup;
 			children = (
+				EDAE117E223DCC25004CECF2 /* Model */,
 				ED188767223B53480080823B /* Supporting Files */,
 				ED188766223B533B0080823B /* Controller */,
 				ED188764223B53080080823B /* View */,
@@ -100,6 +101,13 @@
 				ED18876D223B64290080823B /* ToDoTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		EDAE117E223DCC25004CECF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

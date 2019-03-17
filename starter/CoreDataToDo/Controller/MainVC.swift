@@ -10,8 +10,12 @@ import UIKit
 
 class MainVC: UIViewController {
   
+  // MARK: - Outlets
   @IBOutlet weak var todoTableView: UITableView!
+  
+  // MARK: - Properties
 
+  // MARK: - View controller life-cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     

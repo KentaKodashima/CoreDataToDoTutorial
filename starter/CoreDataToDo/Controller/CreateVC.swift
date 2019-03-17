@@ -18,7 +18,7 @@ class CreateVC: UIViewController {
   @IBOutlet weak var stackView: UIStackView!
   
   // MARK: - Properties
-  private var selectedImage: UIImage!
+  private var selectedImage = UIImage(named: "no-image.png")
   
   // MARK: - View controller life-cycle
   override func viewDidLoad() {

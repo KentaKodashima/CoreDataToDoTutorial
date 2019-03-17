@@ -43,19 +43,19 @@ It holds your own custom code. This file is only generated if there is not a ver
 Core Data properties are generated every time the Core Data classes are generated.
 
 ## NSManagedObjectContext
-To save NSManagedObject instance or its subclass, you need to have NSManagedObjectContext. It is an object space that you use to manipulate and track changes to managed objects such as adding, updating and removing. Changes to managed objects are held in memory, in the associated context, until that context is saved to one or more persistent stores. Since all your data operations have to go through the managed oject context. Therefore, all NSManagedObjects have to have an associated context.
+To save the NSManagedObject instance or its subclass, you need to have NSManagedObjectContext. It is an object space that you use to manipulate and track changes to managed objects such as adding, updating and removing. Changes to managed objects are held in memory, in the associated context, until that context is saved to one or more persistent stores. Since all your data operations have to go through the managed object context. Therefore, all NSManagedObjects have to have an associated context.
 
 ## NSPersistentContainer
 You can think of the persistent container as the representation of your **core data stack** in your app. It represents your data store. You have to ask the persistent container for a managed object context which you use to save your managed objects.
 
 ## Attribute Types
-We can use primitive types for attributes. Every attribute starts off as undefined. Undefined attributes must be marked as transient which is simply a NSObject. In addition to primitive types, there are two kinds of types.
+We can use primitive types for attributes. Every attribute starts off as undefined. Undefined attributes must be marked as transient which is simply an NSObject. In addition to primitive types, there are two kinds of types.
 
 ### Binary Data
 As you add larger data sets such as image data to Core Data, it will slow down the access time. Using the Binary Data type, you can select an option that allows us to use external storage. When we check this option, Core Data saves a reference to data. Data itself is saved outside of the app.
 
-### Tansformable
-Transformable is a type that converts to an NSObject and then is saved as a NSData. You have to perform a cast operation to access the object.
+### Transformable
+Transformable is a type that converts to an NSObject and then is saved as an NSData. You have to perform a cast operation to access the object.
 
 ## NSFetchedResultsController
 NSFetchedResultsController is a controller that you use to manage the results of a Core Data fetch request and to display data to the user. Using the controller, you can do the following things.

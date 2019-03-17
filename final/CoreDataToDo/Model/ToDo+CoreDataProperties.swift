@@ -17,9 +17,9 @@ extension ToDo {
         return NSFetchRequest<ToDo>(entityName: "ToDo")
     }
 
-    @NSManaged public var todoName: String?
-    @NSManaged public var todoDescription: String?
+    @NSManaged public var todoName: String
+    @NSManaged public var todoDescription: String
     @NSManaged public var todoImage: NSData?
-    @NSManaged public var dateCreated: NSDate?
+    @NSManaged public var dateCreated: NSDate
 
 }

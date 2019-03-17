@@ -21,7 +21,7 @@ class CreateVC: UIViewController {
   private var appDelegate = UIApplication.shared.delegate as! AppDelegate
   private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
   
-  private var selectedImage: UIImage!
+  private var selectedImage = UIImage(named: "no-image.png")
   
   // MARK: - View controller life-cycle
   override func viewDidLoad() {
@@ -51,8 +51,8 @@ class CreateVC: UIViewController {
       displayEmptyFieldAlert()
     } else {
       let todo = ToDo(context: context)
-      todo.todoName = todoNameField.text
-      todo.todoDescription = todoDescriptionField.text
+      todo.todoName = todoNameField.text!
+      todo.todoDescription = todoDescriptionField.text!
       todo.dateCreated = NSDate()
       todo.todoImage = selectedImage!.pngData() as NSData?
       appDelegate.saveContext()
